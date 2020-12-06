@@ -45,7 +45,7 @@ int fifo(char *pages[])
         char front = pageTable.front();
         pageTable.pop();
         set.erase(front);
-        set.insert(pages[1][i]);
+        set.insert(pages[1] [i]);
         pageTable.push(pages[1][i]);
         pageFaults++;
       }
@@ -71,7 +71,6 @@ int optimal(char *pages[])
         continue;
       }
     }
-    
     //not found in page table, so add to pageFaults
     pageFaults++;
 
@@ -83,19 +82,19 @@ int optimal(char *pages[])
     {
       // To find which page to delete for optimal replacement
       int del = 0;
-      int next1 = -1;
-      int next2 = -1;
+      int n1 = -1;
+      int n2 = -1;
       for (int j = i; j < strlen(pages[1]); j += 2)
       {
         for (int i = 0; i < pageTable.size(); i++)
         {
           if (pages[1][j] == pageTable[i])
           {
-            if (next1 == -1)
-              next1 = pages[1][j];
+            if (n1 == -1)
+              n1 = pages[1][j];
             else
             {
-              next2 = pages[1][j];
+              n2 = pages[1][j];
               break;
             }
           }
@@ -103,9 +102,9 @@ int optimal(char *pages[])
       }
       for (int k = 0; k < pageTable.size(); k++)
       {
-        if (pageTable[k] == next1)
+        if (pageTable[k] == n1)
           continue;
-        else if (pageTable[k] == next2)
+        else if (pageTable[k] == n2)
           continue;
         else
           del = pageTable[k];
@@ -122,11 +121,11 @@ int optimal(char *pages[])
 }
 
 //LRU
-//reference: got help from Gabriela Pinto
+//reference: worked with Gabriela Pinto
 int lru(char *pages[])
 {
   int pageFaults = 0;
-  int pageTable[3] = {-1, -1, -1};
+  int pageTable[3] = {0, 0, 0};
   for (int i = 0; i < strlen(pages[1]); i += 2)
   {
     //reset
